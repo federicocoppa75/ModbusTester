@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="LoaderSimulator.Views.PieceTransactionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LoaderSimulator.Views"
+             xmlns:selectors="clr-namespace:LoaderSimulator.Views.Selectors"
+             xmlns:converters="clr-namespace:LoaderSimulator.Views.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:PieceExchangeDirectionConverter x:Key="directionConverter">
+            <converters:PieceExchangeDirectionConverterOption When="Load" Then="Ò"/>
+            <converters:PieceExchangeDirectionConverterOption When="Unload" Then="Ó"/>
+        </converters:PieceExchangeDirectionConverter>
+        <converters:PieceExchangePositionConverter x:Key="positionConverter">
+            <converters:PieceExchangePositionConverterOption When="1" Then="" />
+            <converters:PieceExchangePositionConverterOption When="2" Then="" />
+            <converters:PieceExchangePositionConverterOption When="3" Then="" />
+            <converters:PieceExchangePositionConverterOption When="4" Then="" />
+        </converters:PieceExchangePositionConverter>
+        <converters:PieceExchangeTypeConverter x:Key="typeConverter">
+            <converters:PieceExchangeTypeConverterOption When="OnStop" Then=""/>
+            <converters:PieceExchangeTypeConverterOption When="OnClamp" Then=""/>
+            <converters:PieceExchangeTypeConverterOption When="OnBelt" Then=""/>
+        </converters:PieceExchangeTypeConverter>
+        <selectors:TransactionsTemplateSelector x:Key="transactionSelector">
+            <selectors:TransactionsTemplateSelectorOption When="Simple">
+                <DataTemplate>
+                    <Border CornerRadius="4" Background="LightCyan" BorderBrush="Cyan" BorderThickness="2" Margin="2">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="" FontFamily="Webdings" FontSize="22" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="{Binding AdditionalInfos}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>                    
+                </DataTemplate>
+            </selectors:TransactionsTemplateSelectorOption>
+            <selectors:TransactionsTemplateSelectorOption When="PieceExchange">
+                <DataTemplate>
+                    <Border CornerRadius="4" Background="Lavender" BorderBrush="Violet" BorderThickness="2" Margin="2">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ExchangeDirection, Converter={StaticResource directionConverter}}" FontFamily="Webdings" FontSize="22" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="{Binding AdditionalInfos}" VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Position, Converter={StaticResource positionConverter}}" FontFamily="Wingdings" FontSize="22"/>
+                                <TextBlock Text="{Binding ExchangeType, Converter={StaticResource typeConverter}}" FontFamily="Wingdings" FontSize="22" ToolTip="{Binding ExchangeType}"/>
+                            </StackPanel>
+                        </Grid>                        
+                    </Border>                    
+                </DataTemplate>
+            </selectors:TransactionsTemplateSelectorOption>
+            <selectors:TransactionsTemplateSelectorOption When="NeedToConferm">
+                <DataTemplate>
+                    <Border CornerRadius="4" Background="Aquamarine" BorderBrush="LightBlue" BorderThickness="2" Margin="2">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="" FontFamily="Webdings" FontSize="22" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            <Button Grid.Column="2" HorizontalAlignment="Right" VerticalContentAlignment="Center" Command="{Binding ConfermCommand}" ToolTip="Conferm action">
+                                <TextBlock FontSize="22" FontFamily="Webdings" Text="`" VerticalAlignment="Center" />
+                            </Button>
+                        </Grid>
+                    </Border>                    
+                </DataTemplate>
+            </selectors:TransactionsTemplateSelectorOption>
+            <selectors:TransactionsTemplateSelectorOption When="PiecePreExchange">
+                <DataTemplate>
+                    <Border CornerRadius="4" Background="FloralWhite"  BorderBrush="Pink"  BorderThickness="2" Margin="2">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ExchangeDirection, Converter={StaticResource directionConverter}}" FontFamily="Webdings" FontSize="22" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="{Binding AdditionalInfos}" VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Position, Converter={StaticResource positionConverter}}" FontFamily="Wingdings" FontSize="22"/>
+                                <TextBlock Text="{Binding ExchangeType, Converter={StaticResource typeConverter}}" FontFamily="Wingdings" FontSize="22" ToolTip="{Binding ExchangeType}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </selectors:TransactionsTemplateSelectorOption>
+        </selectors:TransactionsTemplateSelector>
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Content="Machine-loader transactions" FontSize="14" FontWeight="Bold"/>
+                <Button Content="" FontFamily="Webdings" FontSize="30" Grid.Column="1" HorizontalAlignment="Right" Margin="2" ToolTip="Abort" Command="{Binding AbortCommand}"/>
+            </Grid>
+            <ListView Name="listView"
+                      Grid.Row="1" ItemsSource="{Binding Transactions}" 
+                      ItemTemplateSelector="{StaticResource transactionSelector}" 
+                      HorizontalContentAlignment="Stretch">
+            </ListView>
+
+            <!--<ListView Grid.Row="1" ItemsSource="{Binding Transactions}" 
+                      HorizontalContentAlignment="Stretch">
+            </ListView>-->
+        </Grid>
+    </Grid>
+</UserControl>

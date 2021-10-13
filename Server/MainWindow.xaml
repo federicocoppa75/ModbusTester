@@ -1,0 +1,47 @@
+﻿<Window x:Class="Server.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Server"
+        xmlns:views="clr-namespace:Registers.Views;assembly=Registers.Views"
+        mc:Ignorable="d"
+        Title="Server" Height="450" Width="800">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Command="{Binding FileOpenCommand}" />
+                </MenuItem>
+                <MenuItem Header="Comunication">
+                    <MenuItem Header="Start" Command="{Binding ComunicationStartCommand}"/>
+                    <MenuItem Header="Stop" Command="{Binding ComunicationStopCommand}"/>
+                    <!--<MenuItem Header="Test write" Command="{Binding ComunicationTestWriteCommand}"/>-->
+                </MenuItem>
+                <MenuItem Header="Commands">
+                    <MenuItem Header="Start clock" Command="{Binding CommandsStartClockCommand}"/>
+                    <MenuItem Header="Stop clock" Command="{Binding CommandsStopClockCommand}"/>
+                </MenuItem>
+            </Menu>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <views:OutputDataView />
+
+                <GridSplitter Grid.Column="1"
+                          ResizeDirection="Columns"
+                          ResizeBehavior="PreviousAndNext"
+                          HorizontalAlignment="Stretch"/>
+
+                <views:InputDataView Grid.Column="2" />
+
+            </Grid>
+        </DockPanel>
+
+    </Grid>
+</Window>

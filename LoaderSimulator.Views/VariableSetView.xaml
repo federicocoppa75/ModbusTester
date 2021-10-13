@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="LoaderSimulator.Views.VariableSetView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LoaderSimulator.Views"
+             xmlns:selectors="clr-namespace:Registers.Views.Utils.Selectors;assembly=Registers.Views.Utils"
+             xmlns:converters="clr-namespace:Registers.Views.Utils.Converters;assembly=Registers.Views.Utils"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:BoolValueToDigitConverter x:Key="boolToDigitConverter" />
+        <selectors:ListViewCellByDataDirectionemplateSelector x:Key="valueTemplateSelector">
+            <selectors:ListViewCellByDataDirectionemplateSelectorOption When="Input">
+                <DataTemplate>
+                    <CheckBox IsEnabled="True" IsChecked="{Binding Value}" />
+                </DataTemplate>
+            </selectors:ListViewCellByDataDirectionemplateSelectorOption>
+            <selectors:ListViewCellByDataDirectionemplateSelectorOption When="Output">
+                <DataTemplate>
+                    <TextBlock Text="{Binding Value, Converter={StaticResource boolToDigitConverter}}" />
+                </DataTemplate>
+            </selectors:ListViewCellByDataDirectionemplateSelectorOption>
+        </selectors:ListViewCellByDataDirectionemplateSelector>
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="{Binding Title}" FontSize="14" FontWeight="Bold"/>
+            <ListView ItemsSource="{Binding DataItems}"  Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" Width="140" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Value" Width="60" CellTemplateSelector="{DynamicResource valueTemplateSelector}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+    </Grid>
+</UserControl>

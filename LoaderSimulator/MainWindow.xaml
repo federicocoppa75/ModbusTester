@@ -1,0 +1,128 @@
+﻿<Window x:Class="LoaderSimulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoaderSimulator"
+        xmlns:views="clr-namespace:LoaderSimulator.Views;assembly=LoaderSimulator.Views"
+        xmlns:viewModels="clr-namespace:LoaderSimulator.ViewModels;assembly=LoaderSimulator.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Command="{Binding FileOpenCommand}" />
+                </MenuItem>
+                <MenuItem Header="Comunication">
+                    <MenuItem Header="Connect" Command="{Binding ComunicationConnectCommand}"/>
+                    <MenuItem Header="Disconnect" Command="{Binding ComunicationDisconnectCommand}"/>
+                    <MenuItem Header="Config">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Ip Address"/>
+                            <TextBox Text="{Binding IpAddress}" Grid.Column="1" Width="80"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Port"/>
+                            <TextBox Text="{Binding Port}" Grid.Column="1" Width="80"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Sample T (ms)"/>
+                            <TextBox Text="{Binding TimeStamp}" Grid.Column="1" Width="80"/>
+                        </Grid>
+                    </MenuItem>
+                    <!--<MenuItem Header="Test write" Command="{Binding ComunicationTestWriteCommand}"/>-->
+                </MenuItem>
+                <MenuItem Header="Commands">
+                    <MenuItem Header="Start clock" Command="{Binding CommandsStartClockCommand}"/>
+                    <MenuItem Header="Stop clock" Command="{Binding CommandsStopClockCommand}"/>
+                </MenuItem>
+            </Menu>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="4"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="4"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="4"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="4"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <views:MachineStatusView />
+
+                    <GridSplitter Grid.Row="1"
+                          ResizeDirection="Rows"
+                          ResizeBehavior="PreviousAndNext"
+                          HorizontalAlignment="Stretch"/>
+
+                    <views:LoaderStatusView Grid.Row="2"/>
+
+                    <GridSplitter Grid.Row="3"
+                          ResizeDirection="Rows"
+                          ResizeBehavior="PreviousAndNext"
+                          HorizontalAlignment="Stretch"/>
+
+                    <views:VariableSetView Grid.Row="4">
+                        <views:VariableSetView.DataContext>
+                            <viewModels:InterferenceSignalsViewModel/>
+                        </views:VariableSetView.DataContext>
+                    </views:VariableSetView>
+                    
+                    <GridSplitter Grid.Row="5"
+                          ResizeDirection="Rows"
+                          ResizeBehavior="PreviousAndNext"
+                          HorizontalAlignment="Stretch"/>
+
+                    <views:VariableSetView Grid.Row="6">
+                        <views:VariableSetView.DataContext>
+                            <viewModels:ParkRequestViewModel/>
+                        </views:VariableSetView.DataContext>
+                    </views:VariableSetView>
+
+                    <GridSplitter Grid.Row="7"
+                          ResizeDirection="Rows"
+                          ResizeBehavior="PreviousAndNext"
+                          HorizontalAlignment="Stretch"/>
+
+                    <views:VariableSetView Grid.Row="8">
+                        <views:VariableSetView.DataContext>
+                            <viewModels:StopRequestViewModel/>
+                        </views:VariableSetView.DataContext>
+                    </views:VariableSetView>
+                </Grid>
+
+
+                <GridSplitter Grid.Column="1"
+                          ResizeDirection="Columns"
+                          ResizeBehavior="PreviousAndNext"
+                          HorizontalAlignment="Stretch"/>
+
+                <views:PieceTransactionsView Grid.Column="2" />
+            </Grid>
+        </DockPanel>
+
+    </Grid>
+</Window>
